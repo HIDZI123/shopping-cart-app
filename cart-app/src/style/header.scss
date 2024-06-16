@@ -1,0 +1,41 @@
+@import "./colors.scss";
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  /* margin: 0 2rem; */
+  background-color: $secondary;
+
+  > h2 {
+    font: 500 2rem "Roboto";
+    text-transform: uppercase;
+  }
+
+  > div {
+    display: flex;
+    align-items: center;
+
+    > a {
+      font: 500 1.2rem "Roboto";
+      margin: 0 2rem;
+      color: $primary;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        opacity: 0.5;
+      }
+
+      p {
+        display: inline-block;
+        color: $tertiary;
+        position: absolute;
+        font: 300 1.8rem;
+        transform: translateY(50%);
+      }
+    }
+  }
+}

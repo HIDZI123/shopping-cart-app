@@ -1,9 +1,23 @@
 /* import React from 'react' */
+import { Link } from "react-router-dom";
+import { FiShoppingCart } from "react-icons/fi";
 
 const Header = () => {
   return (
-    <div>Header</div>
-  )
-}
+    <>
+      <nav>
+        <h2>Logo Here</h2>
 
-export default Header
+        <div>
+          <Link to={"/"}> Home </Link>
+          <Link to={"/cart"}>
+            {" "}
+            <FiShoppingCart /> <p> {0} </p>
+          </Link>
+        </div>
+      </nav>
+    </>
+  );
+};
+
+export default Header;
