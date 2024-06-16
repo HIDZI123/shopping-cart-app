@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
 import Header from "./components/Header";
+import "./style/app.scss"; 
 
 const App = () => {
   return (
