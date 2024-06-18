@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* import React from 'react' */
-import {toast} from "react-hot-toast"
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const img1 =
   "https://www.reliancedigital.in/medias/Apple-MGN63HNA-Laptops-491946461-i-1-1200Wx1200H?context=bWFzdGVyfGltYWdlc3wxNzczNDJ8aW1hZ2UvanBlZ3xpbWFnZXMvaDVhL2gyZC85NDQzMDgzNTgzNTE4LmpwZ3xhYzRiNWIxZGQ2NjNiNWIyYjI0Y2ZkYTZlZWQ3MTFjZTMxYzVmNDBiNmM5Mzk5OTM2OGVkZmExMjMyYjIxNDQ4";
@@ -23,11 +24,18 @@ const Home = () => {
     },
   ];
 
-  const AddtoCart = (options)=>{
-    console.log(options);
+  const dispatch = useDispatch();
+
+  const AddtoCart = (options) => {
+    dispatch({
+      type: "AddToCart",
+      payload: options,
+    });
+    dispatch({
+      type: "Calc",
+    });
     toast.success("Addded To Cart");
-    
-  }
+  };
 
   return (
     <>
@@ -40,7 +48,6 @@ const Home = () => {
             imageSrc={i.imageSrc}
             id={i.id}
             addItem={AddtoCart}
-           
           />
         ))}
       </div>
@@ -53,7 +60,7 @@ const ProductItems = ({ id, name, price, imageSrc, addItem }) => (
     <img src={imageSrc} />
     <p> {name}</p>
     <h4> $ {price} </h4>
-    <button onClick={() => addItem({ id, name, price, imageSrc, quantity : 1 })}>
+    <button onClick={() => addItem({ id, name, price, imageSrc, quantity: 1 })}>
       Add To Cart
     </button>
   </div>

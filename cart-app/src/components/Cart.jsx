@@ -1,29 +1,70 @@
 /* eslint-disable react/prop-types */
 /* import React from 'react' */
 import { MdDeleteSweep } from "react-icons/md";
-
-const img1 =
-  "https://www.reliancedigital.in/medias/Apple-MGN63HNA-Laptops-491946461-i-1-1200Wx1200H?context=bWFzdGVyfGltYWdlc3wxNzczNDJ8aW1hZ2UvanBlZ3xpbWFnZXMvaDVhL2gyZC85NDQzMDgzNTgzNTE4LmpwZ3xhYzRiNWIxZGQ2NjNiNWIyYjI0Y2ZkYTZlZWQ3MTFjZTMxYzVmNDBiNmM5Mzk5OTM2OGVkZmExMjMyYjIxNDQ4";
+import { useDispatch, useSelector } from "react-redux";
 
 const Cart = () => {
+  const { cartItems, subtotal, shipping, tax, total } = useSelector(
+    (state) => state.cart
+  );
+
+  const dispatch = useDispatch();
+
+  const addHandler = (id) => {
+    dispatch({
+      type: "Increment",
+      payload: id,
+    });
+    dispatch({
+      type: "Calc",
+    });
+  };
+  const subHandler = (id) => {
+    dispatch({
+      type: "Decreement",
+      payload: id,
+    });
+    dispatch({
+      type: "Calc",
+    });
+  };
+  const deleteItem = (id) => {
+    dispatch({
+      type: "Delete",
+      payload: id,
+    });
+    dispatch({
+      type: "Calc",
+    });
+  };
+
   return (
     <div className="cart">
       <main>
-        <CartItem
-          id="ahsgdhfkska"
-          imageSrc={img1}
-          name={"Macbook"}
-          price={1200}
-          quantity={1}
-        />
-            
+        {cartItems.length > 0 ? (
+          cartItems.map((i) => (
+            <CartItem
+              key={i.id}
+              id={i.id}
+              imageSrc={i.imageSrc}
+              name={i.name}
+              price={i.price}
+              quantity={i.quantity}
+              increement={addHandler}
+              decreement={subHandler}
+              deleteHandler={deleteItem}
+            />
+          ))
+        ) : (
+          <h1> No Items yet </h1>
+        )}
       </main>
 
       <aside>
-        <p>SubTotal : $ {1200}</p>
-        <p>Shipping : $ {120}</p>
-        <p>Tax : $ {120}</p>
-        <p>Total : $ {1440}</p>
+        <p>SubTotal : $ {subtotal}</p>
+        <p>Shipping : $ {shipping}</p>
+        <p>Tax : $ {tax}</p>
+        <p>Total : $ {total}</p>
       </aside>
     </div>
   );
@@ -35,7 +76,7 @@ const CartItem = ({
   name,
   price,
   quantity,
-  increeement,
+  increement,
   decreement,
   deleteHandler,
 }) => (
@@ -48,8 +89,8 @@ const CartItem = ({
     </article>
 
     <div>
-      <button onClick={() => increeement(id)}> + </button>
-      <p> {1} </p>
+      <button onClick={() => increement(id)}> + </button>
+      <p> {quantity} </p>
       <button onClick={() => decreement(id)}>-</button>
     </div>
 
